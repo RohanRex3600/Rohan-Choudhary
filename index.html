@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travanah - ASK AROUND</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-bg {
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .gallery-img {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Lightbox styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox-content {
+            margin: auto;
+            display: block;
+            max-width: 80%;
+            max-height: 80%;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header -->
+<header id="main-header" class="fixed w-full z-50 top-0">
+    <nav class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+        <!-- Logo + Brand Name -->
+        <a href="#" class="flex items-center space-x-3">
+            <img src="images/logo.png" alt="Travanah Logo" class="h-8 sm:h-10 w-auto">
+            <span class="text-white text-2xl sm:text-3xl font-bold tracking-wider uppercase">Travanah</span>
+        </a>
+
+        <!-- Desktop Menu Links -->
+        <div class="hidden md:flex space-x-8 items-center">
+            <a href="#how-it-works" class="text-white hover:text-gray-200 transition duration-300">How It Works</a>
+            <a href="#faq" class="text-white hover:text-gray-200 transition duration-300">FAQ</a>
+            <a href="#about" class="text-white hover:text-gray-200 transition duration-300">About</a>
+            <a href="#contact" class="bg-teal-600 text-white px-6 py-2 rounded-full hover:bg-teal-700 transition duration-300 shadow-lg">Get Early Access</a>
+        </div>
+
+        <!-- Mobile Menu Button (Icon color changed to white) -->
+        <div class="md:hidden">
+            <button id="mobile-menu-button" class="text-white focus:outline-none">
+                <i class="fas fa-bars fa-lg"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu (This remains the same, with a background for readability when open) -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white/90 backdrop-blur-sm">
+        <a href="#how-it-works" class="block py-3 px-4 text-base text-gray-700 hover:bg-teal-50">How It Works</a>
+        <a href="#faq" class="block py-3 px-4 text-base text-gray-700 hover:bg-teal-50">FAQ</a>
+        <a href="#about" class="block py-3 px-4 text-base text-gray-700 hover:bg-teal-50">About</a>
+        <a href="#contact" class="block py-3 px-4 text-base text-gray-700 hover:bg-teal-50">Get Early Access</a>
+    </div>
+</header>
+    <!-- Hero Section -->
+    <section class="hero-bg h-[85vh] sm:h-screen flex items-center justify-center text-white text-center fade-in">
+        <div class="container mx-auto px-4">
+             <h1 class="text-4xl sm:text-6xl md:text-7xl font-black mb-4 tracking-tight uppercase">Ask Around</h1>
+             <p class="text-base sm:text-lg md:text-xl mb-8 max-w-2xl mx-auto font-light">Ask anything, anywhere. Get real-time answers from locals and fellow explorers to find exactly what you're looking for, right now.</p>
+             <a href="#contact" class="bg-teal-600 text-white px-8 sm:px-10 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold hover:bg-teal-700 transition duration-300 transform hover:scale-105 shadow-2xl">Join the Waitlist</a>
+        </div>
+    </section>
+    <!-- Popular Destinations Section -->
+    <section id="destinations" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-2 text-gray-800">See What People Are Asking</h2>
+            <p class="text-center text-gray-500 mb-12">Real questions from users, answered by the community.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Question Card 1 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                     <img src="images/misal-pav.jpg" alt="A bowl of Misal Pav" class="w-full h-64 object-cover">
+                       <div class="p-6">
+                             <h3 class="text-xl sm:text-2xl font-bold mb-2 text-gray-900">Best Misal Pav near Matunga station?</h3>
+                             <p class="text-gray-600 mb-4">"Definitely try Ramashray, it's legendary! But if the queue is long, Aaswad is just around the corner and almost as good..."</p>
+                             <a href="#" class="text-teal-600 font-semibold hover:underline">See 5 more answers &rarr;</a>
+           </div>
+         </div>
+                <!-- Question Card 2 -->
+<div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+    <img src="images/ganpati-festival.jpg" alt="A street festival for Ganpati Darshan(Photo by Ajeet Mestry on Unsplash)" class="w-full h-64 object-cover">
+    <div class="p-6">
+        <h3 class="text-xl sm:text-2xl font-bold mb-2 text-gray-900">GSB Mandal darshan is over. Any others open near Matunga?</h3>
+        <p class="text-gray-600 mb-4">"GSB was only for 5 days! Head to Lalbaugcha Raja, it's still open. Take a local to Parel station, it's a 10 min walk from there..."</p>
+        <a href="#" class="text-teal-600 font-semibold hover:underline">Check 3 travel routes &rarr;</a>
+    </div>
+</div>
+                <!-- Question Card 3 -->
+<div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+    <img src="images/goa-beach-vibe.jpg" alt="A relaxed beach shack in Goa (Photo by Sohan Rayguru on Unsplash)" class="w-full h-64 object-cover">
+    <div class="p-6">
+        <h3 class="text-xl sm:text-2xl font-bold mb-2 text-gray-900">Looking for a quiet beach shack in North Goa with live music.</h3>
+        <p class="text-gray-600 mb-4">"Forget Baga/Calangute. Head to Ashvem. La Plage is great but pricey. Try the smaller shacks next to it for a more chill vibe..."</p>
+        <a href="#" class="text-teal-600 font-semibold hover:underline">View on map & get directions &rarr;</a>
+    </div>
+</div>
+            </div>
+        </div>
+    </section>
+<!-- How It Works Section -->
+    <section id="how-it-works" class="py-16 sm:py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-2 text-gray-800">How Travanah Works</h2>
+            <p class="text-center text-gray-500 mb-10 sm:mb-16">Your answer is just three simple steps away.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 sm:gap-12 text-center">
+
+                <!-- Step 1 -->
+                <div class="p-6">
+                    <div class="flex items-center justify-center h-24 w-24 mx-auto mb-6 bg-teal-100 rounded-full">
+                         <i class="fas fa-question fa-3x text-teal-600"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold mb-2 text-gray-900">1. Ask a Question</h3>
+                    <p class="text-gray-600">Can't find what you're looking for on a map? Type your question, anything from "Where's the best chai?" to "Is the market crowded now?".</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="p-6">
+                    <div class="flex items-center justify-center h-24 w-24 mx-auto mb-6 bg-teal-100 rounded-full">
+                        <i class="fas fa-comments fa-3x text-teal-600"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold mb-2 text-gray-900">2. Get Community Answers</h3>
+                    <p class="text-gray-600">Get live, relevant answers and suggestions from a network of locals and fellow explorers who are in the know, right now.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="p-6">
+                    <div class="flex items-center justify-center h-24 w-24 mx-auto mb-6 bg-teal-100 rounded-full">
+                        <i class="fas fa-hand-holding-dollar fa-3x text-teal-600"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold mb-2 text-gray-900">3. Tip for Great Help</h3>
+                    <p class="text-gray-600">Loved an answer that saved you time and hassle? Show your appreciation by sending a tip directly to the helpful user.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+<!-- FAQ Section -->
+    <section id="faq" class="py-16 sm:py-20 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 max-w-4xl">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-2 text-gray-800">Frequently Asked Questions</h2>
+            <p class="text-center text-gray-500 mb-10 sm:mb-12">Have questions? We have answers.</p>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <button class="faq-question w-full flex justify-between items-center text-left text-xl font-semibold text-gray-800">
+                        <span>What kind of questions can I ask on Travanah?</span>
+                        <i class="fas fa-plus transform transition-transform"></i>
+                    </button>
+                    <div class="faq-answer hidden mt-4 text-gray-600">
+                        <p>Anything! From "Where can I find authentic street food?" to "Is the local market open on Tuesdays?" or "What's the quickest way to get to the beach from here?". If you need real-time, local info, Travanah is the place to ask.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <button class="faq-question w-full flex justify-between items-center text-left text-xl font-semibold text-gray-800">
+                        <span>Who answers my questions?</span>
+                        <i class="fas fa-plus transform transition-transform"></i>
+                    </button>
+                    <div class="faq-answer hidden mt-4 text-gray-600">
+                        <p>A community of real people—locals, fellow travelers, and explorers who have the on-the-ground knowledge you're looking for. It's like having a thousand local friends in your pocket.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <button class="faq-question w-full flex justify-between items-center text-left text-xl font-semibold text-gray-800">
+                        <span>Is Travanah free to use?</span>
+                        <i class="fas fa-plus transform transition-transform"></i>
+                    </button>
+                    <div class="faq-answer hidden mt-4 text-gray-600">
+                        <p>Yes, asking and answering questions is completely free. You only pay if you choose to send a tip to a user who gave you an exceptionally helpful answer.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <button class="faq-question w-full flex justify-between items-center text-left text-xl font-semibold text-gray-800">
+                        <span>What is tipping and how does it work?</span>
+                        <i class="fas fa-plus transform transition-transform"></i>
+                    </button>
+                    <div class="faq-answer hidden mt-4 text-gray-600">
+                        <p>Tipping is a way to show appreciation for a great answer that saved you time or helped you discover something amazing. You can send a small monetary thank-you to the user directly through the app's secure system. It's completely optional but highly encouraged!</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2">
+                <img src="https://images.unsplash.com/photo-1523908511403-7fc7b25592f4?q=80&w=1994&auto=format&fit=crop" class="rounded-2xl shadow-2xl w-full" alt="About Travanah">
+            </div>
+            <div class="md:w-1/2 text-center md:text-left">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">About Travanah</h2>
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    Welcome to Travanah, your live guide to what's happening around you right now. Forget outdated information. Here, you can ask a question—about anything—and get instant answers from a community of locals and explorers. Wondering which Ganpati pandals are still open for darshan, the best route to a hidden beach in Goa, or where to find the best vibes in your city? Just ask. Travanah gives you real-time recommendations, smart travel options (from cheapest to luxury), and the power to connect with and even tip others for helpful advice. Stop searching, start asking.
+                </p>
+                <a href="#contact" class="bg-gray-800 text-white px-8 py-3 rounded-full font-semibold hover:bg-gray-900 transition duration-300">Join Our Community</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+<section id="why-choose-us" class="py-16 sm:py-20 bg-white">
+    <div class="container mx-auto px-4 sm:px-6">
+        <h2 class="text-3xl sm:text-4xl font-bold text-center mb-10 sm:mb-12 text-gray-800">Why Choose Travanah?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 sm:gap-12 text-center">
+
+            <!-- Feature 1 -->
+            <div class="p-6">
+                <div class="flex items-center justify-center h-20 w-20 mx-auto mb-6 bg-teal-100 rounded-full">
+                     <i class="fas fa-bolt fa-2x text-teal-600"></i>
+                </div>
+                <h3 class="text-xl sm:text-2xl font-bold mb-2 text-gray-900">Live, Real-Time Answers</h3>
+                <p class="text-gray-600">Stop relying on outdated blog posts. Get instant, up-to-the-minute information from people who are actually there.</p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="p-6">
+                <div class="flex items-center justify-center h-20 w-20 mx-auto mb-6 bg-teal-100 rounded-full">
+                    <i class="fas fa-users fa-2x text-teal-600"></i>
+                </div>
+                <h3 class="text-xl sm:text-2xl font-bold mb-2 text-gray-900">Authentic Local Knowledge</h3>
+                <p class="text-gray-600">Tap into a network of locals and savvy travelers to find hidden gems and experiences you won't find in a guidebook.</p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="p-6">
+                <div class="flex items-center justify-center h-20 w-20 mx-auto mb-6 bg-teal-100 rounded-full">
+                    <i class="fas fa-hand-holding-dollar fa-2x text-teal-600"></i>
+                </div>
+                <h3 class="text-xl sm:text-2xl font-bold mb-2 text-gray-900">A Rewarding Community</h3>
+                <p class="text-gray-600">Our tipping feature allows you to thank users for great advice, encouraging a helpful and high-quality community.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Traveler's Gallery</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="grid gap-4">
+                    <div><img class="gallery-img h-auto max-w-full rounded-lg cursor-pointer" src="https://images.unsplash.com/photo-1505832688320-9e173b2a26b2?q=80&w=2070&auto=format&fit=crop" alt=""></div>
+                    <div><img class="gallery-img h-auto max-w-full rounded-lg cursor-pointer" src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=2070&auto=format&fit=crop" alt=""></div>
+                    <div><img class="gallery-img h-auto max-w-full rounded-lg cursor-pointer" src="https://images.unsplash.com/photo-1502602898657-3e91760c0337?q=80&w=2070&auto=format&fit=crop" alt=""></div>
+                </div>
+                <div class="grid gap-4">
+                    <div><img class="gallery-img h-auto max-w-full rounded-lg cursor-pointer" src="https://images.unsplash.com/photo-1534529328216-52d3a3d54f54?q=80&w=1964&auto=format&fit=crop" alt=""></div>
+                    <div><img class="gallery-img h-auto max-w-full rounded-lg cursor-pointer" src="https://images.unsplash.com/photo-1506973035872-1ce022b3a954?q=80&w=2070&auto=format&fit=crop" alt=""></div>
+                    <div><img class="gallery-img h-auto max-w-full rounded-lg cursor-pointer" src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?q=80&w=1974&auto=format&fit=crop" alt=""></div>
+                </div>
+                <div class="grid gap-4">
+                    <div><img class="gallery-img h-auto max-w-full rounded-lg cursor-pointer" src="https://images.unsplash.com/photo-1517400508447-f8a614949a63?q=80&w=2070&auto=format&fit=crop" alt=""></div>
+                    <div><img class="gallery-img h-auto max-w-full rounded-lg cursor-pointer" src="https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?q=80&w=1974&auto=format&fit=crop" alt=""></div>
+                    <div><img class="gallery-img h-auto max-w-full rounded-lg cursor-pointer" src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop" alt=""></div>
+                </div>
+                <div class="grid gap-4">
+                    <div><img class="gallery-img h-auto max-w-full rounded-lg cursor-pointer" src="https://images.unsplash.com/photo-1483683839922-0a14a1da2472?q=80&w=2070&auto=format&fit=crop" alt=""></div>
+                    <div><img class="gallery-img h-auto max-w-full rounded-lg cursor-pointer" src="https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=1974&auto=format&fit=crop" alt=""></div>
+                    <div><img class="gallery-img h-auto max-w-full rounded-lg cursor-pointer" src="https://images.unsplash.com/photo-1528181304800-259b08848526?q=80&w=2070&auto=format&fit=crop" alt=""></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close" id="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+    <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-4">Be the First to Know</h2>
+    <p class="text-gray-600 mb-8">Travanah is launching soon! Sign up below to get early access, become a founding member of our community, and be the first to start asking and answering.</p>
+    <form id="submit-to-google-sheet" method="POST">
+        <div class="mb-4">
+            <label for="name" class="block text-gray-700 font-medium mb-2">Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+        </div>
+        <div class="mb-6">
+            <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email address" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+        </div>
+        <button type="submit" class="w-full bg-teal-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-700 transition duration-300">Notify Me!</button>
+<p id="form-message" class="mt-4 text-center"></p> <!-- Add this line -->
+    </form>
+</div>
+                <div class="lg:w-1/2">
+                    <div class="rounded-lg overflow-hidden shadow-xl h-full">
+                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241316.22897994606!2d72.71413162639256!3d19.082806699271178!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1757236064424!5m2!1sen!2sin" class="w-full h-full" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+<footer class="bg-gray-800 text-white">
+    <div class="container mx-auto px-4 sm:px-6 py-10 sm:py-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
+            <!-- Column 1: Brand Info -->
+            <div>
+                <h3 class="text-xl font-bold mb-4">Travanah.shop</h3>
+                <p class="text-gray-400">Your live, community-powered guide to what's happening now. Stop searching, start asking.</p>
+            </div>
+            <!-- Column 2: Quick Links -->
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                <ul>
+                    <li class="mb-2"><a href="#destinations" class="hover:text-teal-400 transition duration-300">Example Questions</a></li>
+                    <li class="mb-2"><a href="#how-it-works" class="hover:text-teal-400 transition duration-300">How It Works</a></li>
+                    <li class="mb-2"><a href="#faq" class="hover:text-teal-400 transition duration-300">FAQ</a></li>
+                    <li class="mb-2"><a href="#contact" class="hover:text-teal-400 transition duration-300">Get Early Access</a></li>
+                </ul>
+            </div>
+            <!-- Column 3: Legal -->
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Legal</h3>
+                <ul>
+                    <li class="mb-2"><a href="#" class="hover:text-teal-400 transition duration-300">Privacy Policy</a></li>
+                    <li class="mb-2"><a href="#" class="hover:text-teal-400 transition duration-300">Terms of Service</a></li>
+                </ul>
+            </div>
+            <!-- Column 4: Social Links -->
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Connect With Us</h3>
+                <div class="flex space-x-4 justify-center md:justify-start">
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-facebook-f fa-lg"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-linkedin-in fa-lg"></i></a>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright -->
+        <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500">
+            <p>&copy; 2025 Travanah.shop. All Rights Reserved.  Designed with ❤️.</p>
+        </div>
+    </div>
+</footer>
+<!-- Scroll to Top Button -->
+<a id="to-top-button" href="#" class="hidden fixed bottom-8 right-8 bg-teal-600 text-white p-3 rounded-full shadow-lg hover:bg-teal-700 focus:outline-none transition-opacity duration-300">
+    <i class="fas fa-arrow-up fa-lg"></i>
+</a>
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth Scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const galleryImages = document.querySelectorAll('.gallery-img');
+        const lightboxClose = document.getElementById('lightbox-close');
+
+        galleryImages.forEach(img => {
+            img.addEventListener('click', () => {
+                lightbox.style.display = 'flex';
+                lightboxImg.src = img.src;
+            });
+        });
+
+        lightboxClose.addEventListener('click', () => {
+            lightbox.style.display = 'none';
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.style.display = 'none';
+            }
+        });
+// FAQ Accordion functionality
+        const faqQuestions = document.querySelectorAll('.faq-question');
+
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i');
+
+                answer.classList.toggle('hidden');
+                icon.classList.toggle('fa-plus');
+                icon.classList.toggle('fa-minus');
+            });
+        });
+// --- Connects form to Google Sheets with inline messages ---
+const scriptURL = 'https://script.google.com/macros/s/AKfycbz8puYBF98wqxGBovhtQir8K2D4hofSZeWNHTGjMIEdV5iQ_ZrvKpWdeLV7n943zLPk/exec'; // Make sure your URL is still here
+const form = document.getElementById('submit-to-google-sheet');
+const formMessage = document.getElementById('form-message'); // We grab the <p> tag here
+
+form.addEventListener('submit', e => {
+    e.preventDefault();
+    const submitButton = form.querySelector('button');
+    submitButton.disabled = true;
+    submitButton.textContent = 'Submitting...';
+    formMessage.textContent = ''; // Clear any previous message
+
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+            // This is the SUCCESS part
+            formMessage.textContent = 'Success! Thank you for joining the Travanah community.';
+            formMessage.style.color = 'green'; // Make the text green
+            form.reset();
+            submitButton.disabled = false;
+            submitButton.textContent = 'Notify Me!';
+        })
+        .catch(error => {
+            // This is the ERROR part
+            formMessage.textContent = 'Error! Something went wrong. Please try again.';
+            formMessage.style.color = 'red'; // Make the text red
+            submitButton.disabled = false;
+            submitButton.textContent = 'Notify Me!';
+            console.error('Error!', error.message);
+        });
+});
+// --- Dynamic Header & Scroll to Top Button ---
+        const header = document.getElementById('main-header');
+        const toTopButton = document.getElementById('to-top-button');
+
+        if (header && toTopButton) {
+            const navLinks = header.querySelectorAll('nav a'); // Target links inside the nav bar
+            const brandText = header.querySelector('span');
+            const mobileMenuIcon = header.querySelector('#mobile-menu-button');
+
+            window.addEventListener('scroll', () => {
+                const scrollPosition = window.scrollY;
+
+                // Style the header based on scroll position
+                if (scrollPosition > 50) {
+                    header.classList.add('bg-white/90', 'backdrop-blur-sm', 'shadow-md');
+                    if(brandText) brandText.classList.replace('text-white', 'text-gray-800');
+                    if(mobileMenuIcon) mobileMenuIcon.classList.replace('text-white', 'text-gray-800');
+                    navLinks.forEach(link => {
+                        if(!link.classList.contains('bg-teal-600')) { // Exclude the "Get Early Access" button
+                            link.classList.replace('text-white', 'text-gray-600');
+                        }
+                    });
+                } else {
+                    header.classList.remove('bg-white/90', 'backdrop-blur-sm', 'shadow-md');
+                    if(brandText) brandText.classList.replace('text-gray-800', 'text-white');
+                    if(mobileMenuIcon) mobileMenuIcon.classList.replace('text-gray-800', 'text-white');
+                    navLinks.forEach(link => {
+                         if(!link.classList.contains('bg-teal-600')) {
+                            link.classList.replace('text-gray-600', 'text-white');
+                        }
+                    });
+                }
+
+                // Show/hide the "to top" button
+                if (scrollPosition > 300) {
+                    toTopButton.classList.remove('hidden');
+                } else {
+                    toTopButton.classList.add('hidden');
+                }
+            });
+
+            // Add smooth scroll functionality to the button
+            toTopButton.addEventListener('click', e => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+    </script>
+<!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/68bd2571de5a781926482000/1j4hdkhbh';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+    <!--End of Tawk.to Script-->
+</body>
+</html>
